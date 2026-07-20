@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Farmer Assistant</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4fff2;
+}
+
+header{
+background:#2e7d32;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+nav{
+display:flex;
+justify-content:center;
+background:#1b5e20;
+}
+
+nav a{
+color:white;
+padding:15px;
+text-decoration:none;
+}
+
+nav a:hover{
+background:#43a047;
+}
+
+.hero{
+padding:50px;
+text-align:center;
+background:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=80");
+background-size:cover;
+color:white;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 10px rgba(0,0,0,.2);
+}
+
+button{
+background:#2e7d32;
+color:white;
+padding:10px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#1b5e20;
+}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.chat{
+height:220px;
+overflow-y:auto;
+border:1px solid #ccc;
+padding:10px;
+margin-bottom:10px;
+background:#fafafa;
+}
+
+footer{
+background:#2e7d32;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>🌾 Smart Farmer Assistant</h1>
+<p>AI Powered Agriculture Support</p>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Weather</a>
+<a href="#">Crop</a>
+<a href="#">Pest</a>
+<a href="#">Contact</a>
+</nav>
+
+<section class="hero">
+<h1>Welcome Farmers 👨‍🌾</h1>
+<p>Helping you grow better with AI</p>
+</section>
+
+<div class="container">
+
+<div class="card">
+<h2>🌦 Weather</h2>
+
+<p><b>Temperature:</b> 31°C</p>
+<p><b>Humidity:</b> 72%</p>
+<p><b>Rain:</b> Moderate Chance</p>
+
+<button onclick="weather()">Refresh</button>
+
+</div>
+
+<div class="card">
+
+<h2>🌱 Crop Recommendation</h2>
+
+<select id="soil">
+<option>Black Soil</option>
+<option>Red Soil</option>
+<option>Clay Soil</option>
+<option>Sandy Soil</option>
+</select>
+
+<button onclick="crop()">Recommend Crop</button>
+
+<p id="cropResult"></p>
+
+</div>
+
+<div class="card">
+
+<h2>🐛 Pest Detection</h2>
+
+<input type="file">
+
+<button onclick="pest()">Scan Leaf</button>
+
+<p id="pestResult"></p>
+
+</div>
+
+<div class="card">
+
+<h2>💧 Irrigation Advice</h2>
+
+<input type="number" id="moisture" placeholder="Enter Soil Moisture %">
+
+<button onclick="water()">Check</button>
+
+<p id="waterResult"></p>
+
+</div>
+
+<div class="card">
+
+<h2>🤖 AI Farmer Chat</h2>
+
+<div class="chat" id="chat">
+<b>Assistant:</b> Hello Farmer! Ask me anything.
+</div>
+
+<input type="text" id="question" placeholder="Type your question">
+
+<button onclick="chat()">Send</button>
+
+</div>
+
+<div class="card">
+
+<h2>📞 Emergency Numbers</h2>
+
+<p>🚜 Agriculture Officer: 1800-180-1551</p>
+<p>🌾 Crop Insurance: 14447</p>
+<p>🌧 Weather Helpline: 1070</p>
+
+</div>
+
+</div>
+
+<footer>
+
+Developed for Hackathon 2026 | Smart Farmer Assistant
+
+</footer>
+
+<script>
+
+function weather(){
+alert("Weather Updated Successfully!");
+}
+
+function crop(){
+
+let soil=document.getElementById("soil").value;
+
+let result="";
+
+if(soil=="Black Soil")
+result="Cotton, Soybean";
+
+else if(soil=="Red Soil")
+result="Groundnut, Millet";
+
+else if(soil=="Clay Soil")
+result="Rice";
+
+else
+result="Watermelon, Groundnut";
+
+document.getElementById("cropResult").innerHTML="<b>Recommended:</b> "+result;
+
+}
+
+function pest(){
+
+document.getElementById("pestResult").innerHTML="Possible Pest: Leaf Spot Disease";
+
+}
+
+function water(){
+
+let value=document.getElementById("moisture").value;
+
+if(value<40)
+
+document.getElementById("waterResult").innerHTML="Water the crop immediately.";
+
+else
+
+document.getElementById("waterResult").innerHTML="Soil moisture is sufficient.";
+
+}
+
+function chat(){
+
+let q=document.getElementById("question").value.toLowerCase();
+
+let ans="";
+
+if(q.includes("rice"))
+ans="Rice requires standing water during early growth.";
+
+else if(q.includes("cotton"))
+ans="Cotton grows best in black soil.";
+
+else if(q.includes("fertilizer"))
+ans="Use organic compost along with NPK fertilizer.";
+
+else if(q.includes("rain"))
+ans="Rain is expected soon. Avoid over-irrigation.";
+
+else
+ans="Thank you. AI recommendation will be available soon.";
+
+document.getElementById("chat").innerHTML+="<br><b>You:</b> "+q;
+document.getElementById("chat").innerHTML+="<br><b>Assistant:</b> "+ans;
+
+document.getElementById("question").value="";
+
+}
+
+</script>
+
+</body>
+</html>
